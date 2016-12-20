@@ -3,6 +3,8 @@ import mechanize
 from BeautifulSoup import BeautifulSoup
 import argparse
 
+file = open("links.txt", "w")
+
 def printLinks(url):
 	browser = mechanize.Browser()
 	page = browser.open(url)
@@ -13,7 +15,8 @@ def printLinks(url):
 		links = soup.findAll(name='a')
 		for link in links:
 			if link.has_key('href'):
-				print link['href']
+				file.write(link['href'])
+				file.write("\n")
 	except:
 		pass
 
@@ -23,7 +26,7 @@ def main():
 	args = parser.parse_args()
 	url = args.tgtUrl
 	if url == None:
-		print parser.usage
+		print (parser.usage)
 		exit(0)
 	else:
 		printLinks(url)
